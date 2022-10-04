@@ -2,7 +2,7 @@ import sys
 import subprocess
 import os
 
-
+seed = 12345
 DNA_COMP = None
 
 def comp(seq_str):

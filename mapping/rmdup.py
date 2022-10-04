@@ -1,8 +1,10 @@
-from random import choice
 import pysam
-import os
-import sys
 import argparse
+from numpy.random import default_rng
+import util
+
+
+rng = default_rng(util.seed)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input_bam', help="input BAM or SAM file (must be sorted!)")
@@ -33,9 +35,9 @@ linelistminus=[]
 for line in infile:
     if line.rname!=chr or line.pos!=pos:
         if(len(linelistplus)>0):
-            outfile.write(choice(linelistplus))
+            outfile.write(rng.choice(linelistplus))
         if(len(linelistminus)>0):
-            outfile.write(choice(linelistminus))
+            outfile.write(rng.choice(linelistminus))
         chr=line.rname
         pos=line.pos
         linelistplus=[]

@@ -3,9 +3,11 @@ import pysam
 import os
 import sys
 import argparse
-
+from numpy.random import default_rng
 import util
 
+
+rng = default_rng(util.seed)
 
 class ReadStats(object):
 
@@ -94,7 +96,7 @@ def update_read_cache(cur_by_mpos, keep_cache, discard_cache,
         # only keep one read from list with same pos,mate_pos pair
         # shuffle order of reads in list and take first
         # as 'keep' read
-        random.shuffle(read_list)
+        rng.shuffle(read_list)
         keep_read = read_list.pop()
         if keep_read.qname in keep_cache:
             raise ValueError("read %s is already "
@@ -285,5 +287,4 @@ if __name__ == "__main__":
                         "sorted!)")
     
     options = parser.parse_args()
-    
     main(options.input_bam, options.output_bam)
