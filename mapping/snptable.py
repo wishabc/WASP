@@ -100,7 +100,7 @@ class SNPTable(object):
                 self.clear()
                 return
                 
-            hap_idx = np.empty(samp_idx.shape[0]*2, dtype=np.int)
+            hap_idx = np.empty(samp_idx.shape[0]*2, dtype=np.int32)
             hap_idx[0::2] = samp_idx*2
             hap_idx[1::2] = samp_idx*2 + 1
             haps = self.haplotypes[:, hap_idx]
@@ -209,7 +209,7 @@ class SNPTable(object):
                              "%s: %s\n" %
                              (chrom_name, ",".join(not_seen_samples)))
         
-        return samp_idx_dict, np.array(samp_idx, dtype=np.int)
+        return samp_idx_dict, np.array(samp_idx, dtype=np.int32)
 
         
 
@@ -433,7 +433,7 @@ class SNPTable(object):
                 # were low quality. One option would be to 
                 # pretend soft-clipped part of read was aligned
                 # like match/mismatch and to consider SNPs in this
-                # region. We have decided to not consider SNPs 
+                ## region. We have decided to not consider SNPs 
                 # because this part of read is not actually aligned.
 
             elif op == BAM_CHARD_CLIP:
